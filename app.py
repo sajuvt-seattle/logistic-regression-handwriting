@@ -49,11 +49,13 @@ logistic_model = load_model(MODEL_PATH)
 uploaded_file = st.file_uploader("Choose an image...", type=["png", "jpg", "jpeg"])
 
 if uploaded_file is not None:
-    # Read the bytes from the uploaded file
-    image_bytes = uploaded_file.getvalue()
-
-     # Convert image bytes to a PIL Image object for display
-    uploaded_pil_image = Image.open(io.BytesIO(image_bytes))
+    # Open the image using PIL from bytes and convert to grayscale
+    pil_image = Image.open(io.BytesIO(image_bytes)).convert('L')
+    
+    # Convert PIL Image to NumPy array for display to avoid TypeError
+    image_to_display = np.array(pil_image)
+    st.image(image_to_display, caption='Uploaded Image', use_container_width=True)
+    st.write("Processing image...")
 
     # Display the uploaded image
     st.image(image_to_display, caption='Uploaded Image', use_container_width=True)
