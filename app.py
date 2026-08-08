@@ -52,8 +52,11 @@ if uploaded_file is not None:
     # Read the bytes from the uploaded file
     image_bytes = uploaded_file.getvalue()
 
+     # Convert image bytes to a PIL Image object for display
+    uploaded_pil_image = Image.open(io.BytesIO(image_bytes))
+
     # Display the uploaded image
-    st.image(image_bytes, caption='Uploaded Image', use_column_width=True)
+    st.image(uploaded_pil_image, caption='Uploaded Image', use_column_width=True)
     st.write("Processing image...")
 
     # Preprocess the image
