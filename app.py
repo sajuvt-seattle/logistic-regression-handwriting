@@ -49,6 +49,9 @@ logistic_model = load_model(MODEL_PATH)
 uploaded_file = st.file_uploader("Choose an image...", type=["png", "jpg", "jpeg"])
 
 if uploaded_file is not None:
+    # Read the bytes from the uploaded file
+    image_bytes = uploaded_file.getvalue()
+        
     # Open the image using PIL from bytes and convert to grayscale
     pil_image = Image.open(io.BytesIO(image_bytes)).convert('L')
     
